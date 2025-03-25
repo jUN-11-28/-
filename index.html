@@ -9,7 +9,7 @@
         const hash = window.location.hash.substring(1); // # 제거 후 데이터 가져오기
         if (!hash) return alert("잘못된 접근입니다.");
 
-        const params = hash.split("&");
+        const params = hash.split("&").map(decodeURIComponent); // 한글 디코딩 추가
         if (params.length < 8) return alert("필요한 모든 정보를 입력하세요.");
 
         const [phone, month, electricity, gas, water, tv, total, account] =
