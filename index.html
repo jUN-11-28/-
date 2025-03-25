@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문자 자동 전송</title>
+    <script>
+      window.onload = function () {
+        const hash = window.location.hash.substring(1); // # 제거 후 데이터 가져오기
+        if (!hash) return alert("잘못된 접근입니다.");
+
+        const params = hash.split("&");
+        if (params.length < 8) return alert("필요한 모든 정보를 입력하세요.");
+
+        const [phone, month, electricity, gas, water, tv, total, account] =
+          params;
+
+        // 메시지 템플릿
+        const message = `[동인휴 공과금 납부 안내]
+
+■ 납부월: ${month}
+■ 전기 요금: ${parseInt(electricity).toLocaleString()}원
+■ 가스 요금: ${parseInt(gas).toLocaleString()}원
+■ 수도 요금: ${parseInt(water).toLocaleString()}원
+■ TV수신료: ${parseInt(tv).toLocaleString()}원
+━━━━━━━━━━━━━━━
+■ 최종 납부금액: ${parseInt(total).toLocaleString()}원
+
+📌 입금 계좌  
+${account}
+
+📌 입금자명 예시  
+홍길동(101호)
+
+※ 입금 시 반드시 이름과 호실을 기재해 주세요.  
+※ 납부 마감: 매달 말일  
+
+문의사항 이 번호로 연락주세요.  
+감사합니다.`;
+
+        // SMS 링크 생성 (iOS/Android 대응)
+        const smsLink = `sms:${phone}?body=${encodeURIComponent(message)}`;
+
+        // 자동 리다이렉트
+        window.location.href = smsLink;
+      };
+    </script>
+  </head>
+  <body>
+    <h1>문자 전송 준비 중...</h1>
+  </body>
+</html>
