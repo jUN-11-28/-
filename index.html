@@ -10,14 +10,24 @@
         if (!hash) return alert("잘못된 접근입니다.");
 
         const params = hash.split("&").map(decodeURIComponent); // 한글 디코딩 추가
-        if (params.length < 8) return alert("필요한 모든 정보를 입력하세요.");
+        if (params.length < 9) return alert("필요한 모든 정보를 입력하세요.");
 
-        const [phone, month, electricity, gas, water, tv, total, account] =
-          params;
+        const [
+          phone,
+          month,
+          electricity,
+          gas,
+          water,
+          tv,
+          total,
+          account,
+          room,
+        ] = params;
 
         // 메시지 템플릿
         const message = `[동인휴 공과금 납부 안내]
-
+        
+■ 호실: ${roomg}호
 ■ 납부월: ${month}
 ■ 전기 요금: ${parseInt(electricity).toLocaleString()}원
 ■ 난방온수 요금: ${parseInt(gas).toLocaleString()}원
